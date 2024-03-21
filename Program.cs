@@ -1,17 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+var builder = WebApplication.CreateBuilder(args);
 
-namespace KnowledgeOwlCrawler
+// Add services to the container.
+
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
 {
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            ProcessKOAPIData objectKoAPI = new ProcessKOAPIData();
-            objectKoAPI.Process();
-        }
-    }
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
+
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+//app.MapControllers();
+app.MapControllerRoute(
+    name: "KnowledgeOwl",
+    pattern: "{controller=KnowledgeOwl}/{action=IndexKOData}");
+
+app.Run();

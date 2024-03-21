@@ -9,6 +9,7 @@ namespace KnowledgeOwlCrawler
     public class AISearchConfig
     {
         public string Url { get; set; }
+        public string ServiceName { get; set; }
         public string Key { get; set; }
         public string Index { get; set; }
     }

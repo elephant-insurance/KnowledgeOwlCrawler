@@ -1,0 +1,6 @@
+@KnowledgeOwlCrawler_HostAddress = http://localhost:5051
+
+GET {{KnowledgeOwlCrawler_HostAddress}}/indexKOData/
+Accept: application/json
+
+###
