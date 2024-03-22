@@ -9,10 +9,7 @@ namespace KnowledgeOwlCrawler
         public string IndexName { get; set; } = "knowledgeowl-test-web-index";
 
         // All indexes needs a key. 
-        [Key]
-        public string IndexKey { get; set; }
-
-        [IsFilterable, IsSearchable]
+        [Key, IsFilterable, IsSearchable]
         public string id { get; set; }
 
         [IsFilterable, IsSearchable]
