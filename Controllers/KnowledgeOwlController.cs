@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace KnowledgeOwlCrawler.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
     public class KnowledgeOwlController : ControllerBase
     {
         private readonly BlockingCollection<WebPage> _queue = [];
@@ -45,6 +44,8 @@ namespace KnowledgeOwlCrawler.Controllers
 
         [HttpGet]
         [Route("IndexKOData")]
+        [Route("KnowledgeOwl/IndexKOData")]
+        [Route("KnowledgeOwlCrwaler/IndexKOData")]
         public async Task<int> IndexKOData()
         {
             string svcCredentials = Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(koApiConfig.Username + ":" + koApiConfig.Password));
@@ -86,6 +87,8 @@ namespace KnowledgeOwlCrawler.Controllers
 
         [HttpGet]
         [Route("ClearIndex")]
+        [Route("KnowledgeOwl/ClearIndex")]
+        [Route("KnowledgeOwlCrwaler/ClearIndex")]
         public int ClearIndex()
         {
             Uri endpoint = new(aiSearchConfig.Url);
@@ -116,6 +119,16 @@ namespace KnowledgeOwlCrawler.Controllers
             genericMethod1.Invoke(indexManagementContext, null);
 
             return 1;
+        }
+        [HttpHead]
+        [HttpGet]
+        [Route("KnowledgeOwlCrawler")]
+        [Route("index")]
+        [Route("KnowledgeOwl/index")]
+        [Route("KnowledgeOwlCrawler/index")]
+        public void Get()
+        {
+            //method added for docker health check
         }
 
         static async Task<JsonData> CallKOAPIAsync(HttpClient client, string pageNumber, KnowledgeOwl koApiConfig)

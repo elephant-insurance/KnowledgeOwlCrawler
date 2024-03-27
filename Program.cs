@@ -9,6 +9,9 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -16,13 +19,16 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+app.UseCors(builder =>
+{
+    builder
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader();
+});
 
-app.UseAuthorization();
+app.MapControllers();
 
-//app.MapControllers();
-app.MapControllerRoute(
-    name: "KnowledgeOwl",
-    pattern: "{controller=KnowledgeOwl}/{action=IndexKOData}");
+app.MapFallbackToFile("/index.html");
 
 app.Run();
